@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  .container
+    #accordion
+      .card
+        .card-header
+          a.card-link(data-toggle='collapse', href='#newuser')
+            | Create new user
+        #newuser.collapse.show(data-parent='#accordion')
+          .card-body
+            form(action='/api/exercise/new-user', method='POST')
+              .form-group
+                label(for='username') Username:
+                input#username.form-control(name='username', type='text')
+              button.btn.btn-primary(type='submit') Submit
+      .card
+        .card-header
+          a.card-link(data-toggle='collapse', href='#addexercises')
+            | Add exercises
+        #addexercises.collapse(data-parent='#accordion')
+          .card-body
+            form(action='/api/exercise/add', method='POST')
+              .form-group
+                label(for='userID') User-ID:
+                input#userID.form-control(name='userID', type='text')
+              .form-group
+                label(for='username') Description:
+                input#description.form-control(name='description', type='text')
+              .form-group
+                label(for='duration') Duration:
+                input#duration.form-control(name='duration', type='text')
+              .form-group
+                label(for='date') Date:
+                input#date.form-control(name='date', type='text' placeholder="yyyy-mm-dd")
+              button.btn.btn-primary(type='submit') Submit
+      .card
+        .card-header
+          a.card-link(data-toggle='collapse', href='#query')
+            | Get users's exercise log
+        #query.collapse(data-parent='#accordion')
+          .card-body
+            code GET /api/exercise/log?{userId}[&from][&to][&limit]
+            p
+              strong { }
+              |  = required, 
+              strong [ ]
+              |  = optional
+            p
+              strong from, to
+              |  = dates (yyyy-mm-dd); 
+              strong limit
+              |  = number
